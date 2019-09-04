@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="in.bushansirgur.dao.EmployeeMapper">
+	
+	<resultMap type="employee" id="result">
+		<id property="id" column="id" />
+		<result property="fullname" column="fullname" />
+		<result property="email" column="email" />
+		<result property="gender" column="gender" />
+		<result property="hobbies" column="hobbies" />
+		<result property="country" column="country" />
+		<result property="address" column="address" />
+	</resultMap>
+	
+	<select id="getAllEmployees" resultType="employee" resultMap="result">
+		SELECT * FROM employee
+	</select>
+	
+	<insert id="insertEmployee" parameterType="employee" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO employee(fullname, email, gender, hobbies, country, address)
+		VALUES(#{fullname}, #{email}, #{gender}, #{hobbies}, #{country}, #{address})
+	</insert>
+	
+	<update id="updateEmployee" parameterType="employee">
+		UPDATE employee SET fullname = #{fullname}, email = #{email}, gender = #{gender}, hobbies = #{hobbies}, country = #{country}, address = #{address} 
+		WHERE id = #{id} 
+	</update>
+	
+	<delete id="deleteEmployee" parameterType="int">
+		DELETE FROM employee WHERE id = #{employeeId}
+	</delete>
+	
+	<select id="findById" parameterType="int" resultType="employee" resultMap="result">
+		SELECT * FROM employee WHERE id = #{employeeId}
+	</select> 
+</mapper>
